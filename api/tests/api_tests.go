@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	c "generate/bootcamp/src/controller"
@@ -12,10 +11,28 @@ import (
 	"testing"
 
 	"github.com/huandu/go-assert"
+	"github.com/jackc/pgx"
 )
 
 func TestGetBooks(t *testing.T) {
-	conn, err := sql.Open("mysql", "remo:pwd@tcp(localhost:3333)/remodb")
+	db_url, exists := os.LookupEnv("DATABASE_URL")
+
+	cfg := pgx.ConnConfig{
+		User:     "user",
+		Database: "bootcamp",
+		Password: "pwd",
+		Host:     "localhost",
+		Port:     5433,
+	}
+	var err error
+	if exists {
+		cfg, err = pgx.ParseConnectionString(db_url)
+
+		if err != nil {
+			panic(err)
+		}
+	}
+	conn, err := pgx.Connect(cfg)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
@@ -33,7 +50,7 @@ func TestGetBooks(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	req, _ := http.NewRequest("GET", "/v1/books/9780786838653", nil)
+	req, _ := http.NewRequest("GET", "/v1/books/1738", nil)
 
 	router.ServeHTTP(w, req)
 
@@ -46,15 +63,9 @@ func TestGetBooks(t *testing.T) {
 	}
 
 	test_book := model.Book{
-		BookId:      "3757",
-		Title:       "Percy Jackson and the Olympians",
-		Author:      "Rick Riordan",
-		ISBN_13:     "9780786838653",
-		ISBN_10:     "0786838655",
-		Subtitle:    "",
-		PublishDate: "2006",
-		PageCount:   "375",
-		Synopsis:    "Percy Jackson is a good kid, but he can't seem to focus on his schoolwork or control his temper. And lately, being away at boarding school is only getting worse-Percy could have sworn his pre-algebra teacher turned into a monster and tried to kill him. When Percy's mom finds out, she knows it's time that he knew the truth about where he came from, and that he go to the one place he'll be safe. She sends Percy to Camp Half Blood, a summer camp for demigods (on Long Island), where he learns that the father he never knew is Poseidon, God of the Sea. Soon a mystery unfolds and together with his friends -- one a satyr and the other the demigod daughter of Athena -- Percy sets out on a quest across the United States to reach the gates of the Underworld (located in a recording studio in Hollywood) and prevent a catastrophic war between the gods.",
+		BookId: 1738,
+		Title:  "Percy Jackson and the Olympians",
+		Author: "Rick Riordan",
 	}
 	assert.Equal(t, test_book, books)
 }
