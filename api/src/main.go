@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"generate/workshop/src/controller"
-	"generate/workshop/src/model"
+	"generate/bootcamp/src/controller"
+	"generate/bootcamp/src/model"
 	"os"
 
 	"github.com/jackc/pgx"

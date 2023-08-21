@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"generate/workshop/src/model"
+	"generate/bootcamp/src/model"
 	"net/http"
 	"strconv"
 
@@ -52,7 +52,6 @@ func (pg *PgController) Serve() *gin.Engine {
 		if err != nil {
 			c.JSON(http.StatusBadRequest, "Failed to add a book")
 			panic(err)
-			return
 		}
 
 		c.JSON(http.StatusOK, insertedBook)
