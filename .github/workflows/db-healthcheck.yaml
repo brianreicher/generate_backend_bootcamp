@@ -1,0 +1,31 @@
+name: Database Health Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  db-health-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        uses: docker/compose-action@v2
+        with:
+          compose-file: docker-compose.yaml
+
+      - name: Start Docker Compose
+        run: docker-compose up -d db
+
+      - name: Wait for Database Health
+        run: docker-compose exec db pg_isready -q -d postgres -U user
+
+      - name: Run Health Check
+        run: echo "Database is healthy."
+
+      - name: Stop Docker Compose
+        run: docker-compose down

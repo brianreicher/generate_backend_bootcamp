@@ -1,0 +1,22 @@
+name: Run Docker Compose
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-docker-compose:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        uses: docker/compose-action@v2
+        with:
+          compose-file: docker-compose.yaml
+
+      - name: Run Docker Compose
+        run: docker-compose up -d db

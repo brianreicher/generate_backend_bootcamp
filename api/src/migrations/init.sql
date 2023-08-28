@@ -30,4 +30,4 @@ CREATE TABLE IF NOT EXISTS liked_books (
 );
 
 
-INSERT INTO books (title, author) VALUES (1738, 'The Lightning Thief', 'Rick Riordan');
+INSERT INTO books (book_id, title, author) VALUES (1738, 'The Lightning Thief', 'Rick Riordan');
