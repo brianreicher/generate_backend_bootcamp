@@ -17,7 +17,6 @@ type PgController struct {
 	model.Model
 }
 
-// Everything above here is going to move to a  folder (controller layer)
 func (pg *PgController) Serve() *gin.Engine {
 	r := gin.Default()
 
