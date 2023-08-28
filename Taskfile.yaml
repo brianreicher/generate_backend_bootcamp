@@ -1,0 +1,13 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  run:
+    - cd api/src && go run main.go
+
+  test-all:
+    - cd api && go test ./...
+
+  connect:
+    - postgres -u user --password=pwd -P 5433 -h localhost --protocopl=tcp
