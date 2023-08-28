@@ -64,7 +64,7 @@ func TestGetBooks(t *testing.T) {
 
 	test_book := model.Book{
 		BookId: 1738,
-		Title:  "Percy Jackson and the Olympians",
+		Title:  "Percy Jackson and the Olympians - The Lighning Thief",
 		Author: "Rick Riordan",
 	}
 	assert.Equal(t, test_book, books)

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS students (
 );
 
 CREATE TABLE IF NOT EXISTS books (
-    book_id serial PRIMARY KEY,
+    book_id integer PRIMARY KEY,
     title varchar NOT NULL,
     author varchar NOT NULL
 );
@@ -29,3 +29,5 @@ CREATE TABLE IF NOT EXISTS liked_books (
     nuid integer NOT NULL REFERENCES students (nuid)
 );
 
+
+INSERT INTO books (title, author) VALUES (1738, 'The Lightning Thief', 'Rick Riordan');
