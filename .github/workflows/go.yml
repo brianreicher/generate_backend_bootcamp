@@ -63,7 +63,8 @@ jobs:
       - name: Init Database
         run: SKIP_DOCKER=true ./scripts/init_db.sh
       - name: Run Tests with Coverage
-        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./api
+        working-directory: ./api
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic
       - name: Print Coverage
         run: |
           go tool cover -func=coverage.txt
