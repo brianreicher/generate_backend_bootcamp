@@ -55,7 +55,7 @@ jobs:
         with:
           go-version: "1.19"
       - name: Install Dependencies
-        run: go install ./api
+        run: go get ./api.src
       - name: Build
         run: go build -v ./api
       - name: Init Database
