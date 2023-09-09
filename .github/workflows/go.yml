@@ -57,7 +57,8 @@ jobs:
       - name: Foo
         run: go mod init foo
       - name: Install Dependencies
-        run: go get ./api
+        working-directory: ./api
+        run: go get .
       - name: Build
         run: go build -v ./api
       - name: Init Database
