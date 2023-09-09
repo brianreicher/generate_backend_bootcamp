@@ -54,8 +54,10 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: "1.19"
+      - name: Foo
+        run: go mod init foo
       - name: Install Dependencies
-        run: go get ./api.src
+        run: go get ./api
       - name: Build
         run: go build -v ./api
       - name: Init Database
