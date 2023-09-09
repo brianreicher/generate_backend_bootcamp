@@ -2,13 +2,15 @@ package model
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/jackc/pgx"
 )
 
 func WriteBookToDb(pool *pgx.Conn, book Book) (Book, error) {
+	bookIdStr := strconv.FormatInt(book.BookId, 10)
 
-	err := pool.QueryRow(fmt.Sprintf("INSERT INTO books (title, author) VALUES ('%s','%s') RETURNING book_id;", book.Title, book.Author)).Scan(&book.BookId)
+	err := pool.QueryRow(fmt.Sprintf("INSERT INTO books (book_id, title, author) VALUES ('%s','%s', '%s') RETURNING book_id;", bookIdStr, book.Title, book.Author)).Scan(&book.BookId)
 
 	if err != nil {
 		return Book{}, err

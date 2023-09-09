@@ -28,6 +28,3 @@ CREATE TABLE IF NOT EXISTS liked_books (
     book_id integer NOT NULL REFERENCES books (book_id),
     nuid integer NOT NULL REFERENCES students (nuid)
 );
-
-
-INSERT INTO books (book_id, title, author) VALUES (1738, 'The Lightning Thief', 'Rick Riordan');

@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"generate/bootcamp/src/model"
 	"net/http"
 	"strconv"
@@ -43,9 +44,9 @@ func (pg *PgController) Serve() *gin.Engine {
 
 		if err := c.BindJSON(&book); err != nil {
 			c.JSON(http.StatusBadRequest, "Failed to unmarshal book")
+			fmt.Print(err)
 			return
 		}
-
 		insertedBook, err := pg.AddBook(book)
 
 		if err != nil {
