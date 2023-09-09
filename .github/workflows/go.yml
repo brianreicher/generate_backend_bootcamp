@@ -58,7 +58,8 @@ jobs:
         working-directory: ./api
         run: go mod tidy
       - name: Build
-        run: go build -v ./api/src
+        working-directory: ./api/src
+        run: go build -v
       - name: Init Database
         run: SKIP_DOCKER=true ./scripts/init_db.sh
       - name: Run Tests with Coverage

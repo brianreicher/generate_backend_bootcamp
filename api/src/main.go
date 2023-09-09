@@ -17,7 +17,7 @@ func main() {
 		Database: "bootcamp",
 		Password: "pwd",
 		Host:     "localhost",
-		Port:     5433,
+		Port:     5432,
 	}
 	var err error
 	if exists {
