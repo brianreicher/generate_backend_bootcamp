@@ -1,6 +1,6 @@
 # https://taskfile.dev
 
-version: '3'
+version: "3"
 
 tasks:
   run:
@@ -10,4 +10,4 @@ tasks:
     - cd api && go test ./...
 
   connect:
-    - postgres -u user --password=pwd -P 5433 -h localhost --protocopl=tcp
+    - postgres -u user --password=pwd -P 5432 -h localhost --protocopl=tcp

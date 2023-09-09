@@ -36,4 +36,4 @@ until PGPASSWORD="${DB_PASSWORD}" psql -h "${DB_HOST}" -U "${DB_USER}" -p "${DB_
   sleep 1
 done
 
->&2 echo "Postgres is up and running on port ${DB_PORT} - running migrations now!"
+>&2 echo "Postgres is up and running on port ${DB_PORT} !"
