@@ -10,4 +10,4 @@ tasks:
     - cd api && go test ./...
 
   connect:
-    - postgres -u user --password=pwd -P 5432 -h localhost --protocopl=tcp
+    - postgres -u postgres --password=pwd -P 5432 -h localhost --protocopl=tcp
