@@ -46,7 +46,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: backendbootcamp
         ports:
-          - 5432:5433
+          - 5433:5433
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3

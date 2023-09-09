@@ -18,10 +18,10 @@ func TestGetBooks(t *testing.T) {
 	db_url, exists := os.LookupEnv("DATABASE_URL")
 
 	cfg := pgx.ConnConfig{
-		User:     "user",
-		Database: "bootcamp",
-		Password: "pwd",
-		Host:     "localhost",
+		User:     "postgres",
+		Database: "backendbootcamp",
+		Password: "password",
+		Host:     "127.0.0.1",
 		Port:     5433,
 	}
 	var err error
