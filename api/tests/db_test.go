@@ -11,8 +11,8 @@ import (
 func TestDBConnection(t *testing.T) {
 	dbURL := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s?sslmode=disable",
 		"postgres",
-		"pwd",
-		"bootcamp",
+		"password",
+		"backendbootcamp",
 	)
 
 	db, err := sql.Open("postgres", dbURL)

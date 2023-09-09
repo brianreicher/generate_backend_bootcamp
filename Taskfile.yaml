@@ -9,5 +9,5 @@ tasks:
   test-all:
     - cd api && go test ./...
 
-  connect:
-    - postgres -u postgres --password=pwd -P 5432 -h localhost --protocopl=tcp
+  launch-db:
+    - ./scripts/init_db.sh

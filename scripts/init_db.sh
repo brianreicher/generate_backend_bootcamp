@@ -36,4 +36,8 @@ until PGPASSWORD="${DB_PASSWORD}" psql -h "${DB_HOST}" -U "${DB_USER}" -p "${DB_
   sleep 1
 done
 
->&2 echo "Postgres is up and running on port ${DB_PORT} !"
+>&2 echo "Postgres is up and running on port ${DB_PORT} - running migrations now!"
+
+PGPASSWORD="${DB_PASSWORD}" psql -h "${DB_HOST}" -U "${DB_USER}" -p "${DB_PORT}" -d "${DB_NAME}" -a -f ./api/src/migrations/init.sql
+
+>&2 echo "Postgres has been migrated, ready to go!"
