@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
       - name: Enforce formatting
-        run: gofmt -l . | grep ".go$" | xargs -r echo "Files not formatted:"
+        run: gofmt -l ./api | grep ".go$" | xargs -r echo "Files not formatted:"
 
   lint:
     name: Lint
@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Enforce linting
         run: |
-          lint_output=$(go vet ./...)
+          lint_output=$(go vet ./api/...)
           if [[ -n "$lint_output" ]]; then
             echo "$lint_output"
             echo "::error::Linting issues found"
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:12
+        image: postgres:14
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
@@ -47,19 +47,19 @@ jobs:
           - 5432:5432
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v2
         with:
           go-version: "1.20"
       - name: Install Dependencies
-        run: go get .
+        run: go get ./api
       - name: Build
-        run: go build -v ./...
+        run: go build -v ./api
       - name: Migrate Database
         run: SKIP_DOCKER=true ./scripts/init_db.sh
       - name: Run Tests with Coverage
-        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./api
       - name: Print Coverage
         run: |
           go tool cover -func=coverage.txt
