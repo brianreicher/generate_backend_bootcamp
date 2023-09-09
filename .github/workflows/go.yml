@@ -14,19 +14,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Enforce formatting
-        run: gofmt -l ./api | grep ".go$" | xargs -r echo "Files not formatted:"
+        working-directory: ./api
+        run: gofmt -l . | grep ".go$" | xargs -r echo "Files not formatted:"
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Enforce linting
+        working-directory: ./api
         run: |
-          lint_output=$(go vet ./api/...)
+          lint_output=$(go vet ./...)
           if [[ -n "$lint_output" ]]; then
             echo "$lint_output"
             echo "::error::Linting issues found"
@@ -53,13 +55,18 @@ jobs:
         with:
           go-version: "1.20"
       - name: Install Dependencies
-        run: go get ./api
+        working-directory: ./api
+        run: go get .
       - name: Build
-        run: go build -v ./api
+        working-directory: ./api
+        run: go build -v .
       - name: Migrate Database
+        working-directory: ./api
         run: SKIP_DOCKER=true ./scripts/init_db.sh
       - name: Run Tests with Coverage
-        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./api
+        working-directory: ./api
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic .
       - name: Print Coverage
+        working-directory: ./api
         run: |
           go tool cover -func=coverage.txt
