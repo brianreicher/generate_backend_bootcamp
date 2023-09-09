@@ -1,28 +1,65 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
-
 name: Go
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-
-  build:
+  format:
+    name: Format
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Enforce formatting
+        run: gofmt -l . | grep ".go$" | xargs -r echo "Files not formatted:"
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.20'
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Enforce linting
+        run: |
+          lint_output=$(go vet ./...)
+          if [[ -n "$lint_output" ]]; then
+            echo "$lint_output"
+            echo "::error::Linting issues found"
+            exit 1
+          fi
 
-    - name: Build
-      run: cd api && go build -v ./...
-
-    - name: Test
-      run: docker compose up db && cd api && go test -v ./...
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: backendbootcamp
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.20"
+      - name: Install Dependencies
+        run: go get .
+      - name: Build
+        run: go build -v ./...
+      - name: Migrate Database
+        run: SKIP_DOCKER=true ./scripts/init_db.sh
+      - name: Run Tests with Coverage
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+      - name: Print Coverage
+        run: |
+          go tool cover -func=coverage.txt
