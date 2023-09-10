@@ -8,8 +8,8 @@ import (
 	"os"
 	"testing"
 
-	c "github.com/brianreicher/generate_backend_bootcamp/api/src/controller"
-	"github.com/brianreicher/generate_backend_bootcamp/api/src/model"
+	c "github.com/brianreicher/generate_backend_bootcamp/src/controller"
+	"github.com/brianreicher/generate_backend_bootcamp/src/model"
 
 	"github.com/huandu/go-assert"
 	"github.com/jackc/pgx"
