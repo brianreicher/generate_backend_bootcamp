@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/brianreicher/generate_backend_bootcamp/src/controller"
-	"github.com/brianreicher/generate_backend_bootcamp/src/model"
+	"github.com/brianreicher/generate_backend_bootcamp/api/src/controller"
+	"github.com/brianreicher/generate_backend_bootcamp/api/src/model"
 
 	"os"
 

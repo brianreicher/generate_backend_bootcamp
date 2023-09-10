@@ -1,4 +1,4 @@
-module github.com/brianreicher/generate_backend_bootcamp
+module github.com/brianreicher/generate_backend_bootcamp/api
 
 go 1.19
 
