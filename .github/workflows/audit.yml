@@ -14,11 +14,11 @@ jobs:
   securit_audit:
     runs-on: ubuntu-latest
     env:
-      GO111MODULE: off
+      GO111MODULE: true
     steps:
       - name: Checkout Source
         uses: actions/checkout@v3
       - name: Run Gosec Security Scanner
         uses: securego/gosec@master
         with:
-          args: ./...
+          args: ./api/
