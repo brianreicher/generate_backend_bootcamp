@@ -4,13 +4,11 @@ on:
   schedule:
     - cron: "0 0 * * *"
   push:
-    paths:
-      - "**/go.mod"
-      - "**/go.sum"
+    branches:
+      - main
   pull_request:
-    paths:
-      - "**/go.mod"
-      - "**/go.sum"
+    branches:
+      - main
 
 jobs:
   securit_audit:
