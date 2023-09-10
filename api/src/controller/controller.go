@@ -2,9 +2,10 @@ package controller
 
 import (
 	"fmt"
-	"generate/bootcamp/src/model"
 	"net/http"
 	"strconv"
+
+	"github.com/brianreicher/generate_backend_bootcamp/src/model"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

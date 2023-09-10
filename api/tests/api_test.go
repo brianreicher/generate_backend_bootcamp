@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	c "generate/bootcamp/src/controller"
-	"generate/bootcamp/src/model"
 	"net/http/httptest"
 	"os"
 	"testing"
+
+	c "github.com/brianreicher/generate_backend_bootcamp/src/controller"
+	"github.com/brianreicher/generate_backend_bootcamp/src/model"
 
 	"github.com/huandu/go-assert"
 	"github.com/jackc/pgx"

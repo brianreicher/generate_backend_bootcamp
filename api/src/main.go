@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
-	"generate/bootcamp/src/controller"
-	"generate/bootcamp/src/model"
+
+	"github.com/brianreicher/generate_backend_bootcamp/src/controller"
+	"github.com/brianreicher/generate_backend_bootcamp/src/model"
+
 	"os"
 
 	"github.com/jackc/pgx"
