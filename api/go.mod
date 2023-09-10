@@ -1,7 +1,5 @@
 module github.com/brianreicher/generate_backend_bootcamp
 
-replace github.com/brianreicher/generate_backend_bootcamp/api => ./generate_backend_bootcamp/api
-
 go 1.19
 
 require (
